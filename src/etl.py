@@ -2,7 +2,12 @@
 ETL for Cat Adoption Analysis
 
 This script reads two raw CSV files (intakes and outcomes), normalizes columns, 
-computes age in months and writes processed CSV files to the processed folder.
+computes age in months and length of stay, and writes processed CSV files to 
+the processed folder.
+
+NOTE:
+Only intake-related variables should be used for modeling.
+Outcome-related columns are for analysis only.
 """
 
 from pathlib import Path
@@ -224,7 +229,14 @@ def validate_post_join(df: pd.DataFrame, intakes: pd.DataFrame, key: str):
     print(f"\nUnique animals after join: {joined_unique:,}")
     
 
-def join(intakes: pd.DataFrame, outcomes: pd.DataFrame) -> pd.DataFrame:
+def build_adoption_episodes(intakes: pd.DataFrame, outcomes: pd.DataFrame) -> pd.DataFrame:
+    """
+    Constructs intake -> outcome episodes.
+
+    Each intake is matched to the earliest outcome for the same animal
+    that occurs at or after the intake datetime. This handles animals
+    with multiple stays.
+    """
     # optional validation checks used during development
     debug = False #True
     if debug:
@@ -242,7 +254,8 @@ def join(intakes: pd.DataFrame, outcomes: pd.DataFrame) -> pd.DataFrame:
                        by="Animal ID", 
                        left_on="datetime_intake",
                        right_on="datetime_outcome",
-                       direction="forward")
+                       direction="forward",
+                       suffixes=["_intake", "_outcome"])
     
     # optional validation checks used during development
     if debug: 
@@ -252,6 +265,7 @@ def join(intakes: pd.DataFrame, outcomes: pd.DataFrame) -> pd.DataFrame:
     df["is_adopted"] = (df["Outcome Type"] == 'Adoption')
     df["has_outcome"] = df["Outcome Type"].notna()
     df["length_of_stay_days"] = (df["datetime_outcome"] - df["datetime_intake"]).dt.days
+    df["invalid_los"] = (df["length_of_stay_days"] < 0)
     
     return df
     
@@ -266,7 +280,7 @@ def main(intakes_input_path: str, outcomes_input_path: str, output_dir: str):
     df_outcomes = process_outcomes(df_outcomes_raw)
     
     # merge intakes and outcomes into one canonical dataset
-    df_all = join(df_intakes, df_outcomes)
+    df_all = build_adoption_episodes(df_intakes, df_outcomes)
     
     # output final dataset to CSV
     outdir = Path(output_dir)
