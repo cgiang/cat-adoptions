@@ -81,8 +81,10 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
 
     # normalize text columns
     if "Name" in df.columns:
-        df["Name"] = df["Name"].fillna("Unknown").astype(str).str.title()
-        df["Name"] = df["Name"].astype(str).replace("\\*", "", regex=True).str.strip()
+        df["Name"] = df["Name"].str.replace("\\*", "", regex=True).str.strip()
+        df['Name'] = df['Name'].replace("Unknown", "")
+        df['Name'] = df['Name'].replace("Unknown-Stray", "")
+        df['Name'] = df['Name'].fillna("").astype(str)
 
     return df
 
@@ -113,11 +115,11 @@ def process_intakes(raw_df: pd.DataFrame) -> pd.DataFrame:
  
     # normalize text columns
     if "Sex upon Intake" in df.columns:
-        df["Sex upon Intake"] = df["Sex upon Intake"].fillna("Unknown").astype(str).str.title()
+        df["Sex upon Intake"] = df["Sex upon Intake"].replace("Unknown", "")
         
     # classify into age groups
-    if "Age upon Intake (months)" in df.columns:
-        df["age_group_intake"] = df["Age upon Intake (months)"].apply(age_group)
+    if "age_intake_months" in df.columns:
+        df["age_group_intake"] = df["age_intake_months"].apply(age_group)
     
     return df
 
@@ -150,15 +152,15 @@ def process_outcomes(raw_df: pd.DataFrame) -> pd.DataFrame:
         
     # normalize text columns
     if "Sex upon Outcome" in df.columns:
-        df["Sex upon Outcome"] = df["Sex upon Outcome"].fillna("Unknown").astype(str).str.title()
+        df["Sex upon Outcome"] = df["Sex upon Outcome"].replace("Unknown", "")
     if "Outcome Type" in df.columns:
-        df["Outcome Type"] = df["Outcome Type"].fillna("Unknown").astype(str).str.title()
+        df["Outcome Type"] = df["Outcome Type"].replace("Unknown", "")
     if "Outcome Subtype" in df.columns:
         df["Outcome Subtype"] = df["Outcome Subtype"].fillna("").astype(str).str.title()
         
     # classify into age groups
-    if "Age upon Outcome (months)" in df.columns:
-        df["age_group_outcome"] = df["Age upon Outcome (months)"].apply(age_group)
+    if "age_outcome_months" in df.columns:
+        df["age_group_outcome"] = df["age_outcome_months"].apply(age_group)
         
     return df
 
