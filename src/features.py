@@ -13,13 +13,32 @@ supervised modeling.
 import pandas as pd
 import numpy as np
 
-# a months to seasons
-SEASON_MAP = {
-    12: "winter", 1: "winter", 2: "winter",
-    3: "spring", 4: "spring", 5: "spring",
-    6: "summer", 7: "summer", 8: "summer",
-    9: "fall", 10: "fall", 11: "fall",
-}
+def collapse_rare_levels(
+        series: pd.Series, 
+        min_count: int=50, 
+        other_label: str="Other / Rare"
+    ) -> pd.Series:
+    """
+    Collapse rare levels in features for adoption modeling.
+
+    Parameters
+    ----------
+    series : pd.Series
+        A column in the canonical intake-level dataset produced by ETL.
+    min_count: int
+        Minimum number of records in a non-rare level.
+    other_label: str
+        New aggregate label for collapsed levels.
+    Returns
+    -------
+    series_clean : pd.Series
+        Column of the same name with collapsed rare levels.
+    """
+    
+    counts = series.value_counts()
+    rare = counts[counts < min_count].index
+    series_clean = series.where(~series.isin(rare), other=other_label)
+    return series_clean
 
 
 def build_intake_features(df: pd.DataFrame) -> pd.DataFrame:
@@ -33,25 +52,25 @@ def build_intake_features(df: pd.DataFrame) -> pd.DataFrame:
 
     Returns
     -------
-    X : pd.DataFrame
+    features : pd.DataFrame
         Feature matrix containing only intake-time variables.
     """
-
+    
     features = pd.DataFrame(index=df.index)
 
     # age features
     features["age_intake_months"] = pd.to_numeric(df["age_intake_months"])
-    features["is_kitten_at_intake"] = (df["age_group_intake"] == "kitten").astype(int)
     features["age_group_at_intake"] = df["age_group_intake"].fillna("Unknown")
 
     # intake characteristics
-    features["sex_at_intake"] = df["Sex upon Intake"].fillna("Unknown")
-    features["intake_type"] = df["Intake Type"].fillna("Unknown")
-    features["has_name"] = df["Name_intake"].notna().astype(int)
+    features["intake_type"] = df["intake_type"].fillna("Unknown")
+    features["intake_condition"] = collapse_rare_levels(df["intake_condition"])
+    features["breed_intake"] = collapse_rare_levels(df["breed_intake"])
+    features["color_intake"] = collapse_rare_levels(df["color_intake"])
+    features["has_name"] = df["name_intake"].notna().astype(int)
 
     # intake time features
     features["intake_month"] = df["datetime_intake"].dt.month.astype("Int64")
-    features["intake_season"] = features["intake_month"].map(SEASON_MAP).fillna("Unknown")
 
     return features
 
@@ -71,7 +90,7 @@ def build_targets(df: pd.DataFrame) -> pd.Series:
     y : pd.Series
         Binary adoption outcome (1 = adopted, 0 = not adopted).
     """
-
+    
     if "has_outcome" not in df.columns or "is_adopted" not in df.columns:
         raise ValueError("Missing required columns for target feature.")
     y = df.loc[df["has_outcome"], "is_adopted"].astype(int)
@@ -158,9 +177,8 @@ def validate_feature_inputs(df: pd.DataFrame):
     required_columns = [
         "age_intake_months",
         "age_group_intake",
-        "Sex upon Intake",
-        "Intake Type",
-        "Name_intake",
+        "intake_type",
+        "name_intake",
         "datetime_intake"
     ]
 

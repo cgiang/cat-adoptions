@@ -54,12 +54,12 @@ def parse_age_to_months(age_str: str):
 
 
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
-    # strip spaces from column names
-    df = df.rename(columns={c: c.strip() for c in df.columns})
+    # strip spaces from column names and convert to lower case
+    df = df.rename(columns={c: c.strip().lower().replace(" ", "_") for c in df.columns})
     return df
 
 
-def age_group(m):
+def age_group(m) -> str:
     if pd.isna(m):
         return "unknown"
     # age group buckets, according to 2021 AAHA/AAFP Feline Life Stage Guidelines
@@ -75,17 +75,17 @@ def age_group(m):
 def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df = normalize_columns(df)
 
-    # filter to cats if Animal Type column exists
-    if "Animal Type" in df.columns:
-        df = df[df["Animal Type"].astype(str).str.strip().str.lower() == "cat"]
+    # filter to cats if animal_type column exists
+    if "animal_type" in df.columns:
+        df = df[df["animal_type"].astype(str).str.strip().str.lower() == "cat"]
 
     # normalize text columns
-    if "Name" in df.columns:
-        df["Name"] = df["Name"].str.replace("\\*", "", regex=True).str.strip()
-        df['Name'] = df['Name'].replace("Unknown", "")
-        df['Name'] = df['Name'].replace("Unknown-Stray", "")
-        df['Name'] = df['Name'].fillna("").astype(str)
-
+    if "name" in df.columns:
+        df["name"] = df["name"].str.replace("\\*", "", regex=True).str.strip()
+        df['name'] = df['name'].replace("Unknown", "")
+        df['name'] = df['name'].replace("Unknown-Stray", "")
+        df['name'] = df['name'].fillna("").astype(str)
+        
     return df
 
 def process_intakes(raw_df: pd.DataFrame) -> pd.DataFrame:
@@ -93,9 +93,9 @@ def process_intakes(raw_df: pd.DataFrame) -> pd.DataFrame:
     debug = False #True
     
     # parse dates
-    if "DateTime" in df.columns:
-        df["DateTime"] = pd.to_datetime(df["DateTime"])
-        df.rename(columns={'DateTime': 'datetime_intake'}, inplace=True)
+    if "datetime" in df.columns:
+        df["datetime"] = pd.to_datetime(df["datetime"])
+        df.rename(columns={"datetime": "datetime_intake"}, inplace=True)
         # check time zone
         if debug:
             tz = df["datetime_intake"].dt.tz
@@ -105,17 +105,17 @@ def process_intakes(raw_df: pd.DataFrame) -> pd.DataFrame:
                 print("\nIntakes do not specify a time zone.")
         df["datetime_intake"] = df["datetime_intake"].dt.tz_localize("UTC-05:00")
         
-    if "MonthYear" in df.columns:
-        df["MonthYear"] = pd.to_datetime(df["MonthYear"], format="mixed", dayfirst=False)
-        df.rename(columns={'MonthYear': 'month_year_intake'}, inplace=True)
+    if "monthyear" in df.columns:
+        df["monthyear"] = pd.to_datetime(df["monthyear"], format="mixed", dayfirst=False)
+        df.rename(columns={'monthyear': 'month_year_intake'}, inplace=True)
     
     # age to months
-    if "Age upon Intake" in df.columns:
-        df["age_intake_months"] = df["Age upon Intake"].apply(parse_age_to_months)
+    if "age_upon_intake" in df.columns:
+        df["age_intake_months"] = df["age_upon_intake"].apply(parse_age_to_months)
  
     # normalize text columns
-    if "Sex upon Intake" in df.columns:
-        df["Sex upon Intake"] = df["Sex upon Intake"].replace("Unknown", "")
+    if "sex_upon_intake" in df.columns:
+        df["sex_upon_intake"] = df["sex_upon_intake"].replace("Unknown", "")
         
     # classify into age groups
     if "age_intake_months" in df.columns:
@@ -128,9 +128,9 @@ def process_outcomes(raw_df: pd.DataFrame) -> pd.DataFrame:
     debug = False #True
     
     # parse dates
-    if "DateTime" in df.columns:
-        df["DateTime"] = pd.to_datetime(df["DateTime"], format="ISO8601")
-        df.rename(columns={'DateTime': 'datetime_outcome'}, inplace=True)
+    if "datetime" in df.columns:
+        df["datetime"] = pd.to_datetime(df["datetime"], format="ISO8601")
+        df.rename(columns={"datetime": "datetime_outcome"}, inplace=True)
         # check time zone
         if debug:
             tz = df["datetime_outcome"].dt.tz
@@ -140,23 +140,23 @@ def process_outcomes(raw_df: pd.DataFrame) -> pd.DataFrame:
                 print("\nOutcomes do not specify a time zone.")
         df["datetime_outcome"] = df["datetime_outcome"].dt.tz_convert("UTC-05:00")
         
-    if "MonthYear" in df.columns:
-        df["MonthYear"] = pd.to_datetime(df["MonthYear"], format="mixed", dayfirst=False)
-        df.rename(columns={'MonthYear': 'month_year_outcome'}, inplace=True)
-    if "Date of Birth" in df.columns:
-        df["Date of Birth"] = pd.to_datetime(df["Date of Birth"])
+    if "monthyear" in df.columns:
+        df["monthyear"] = pd.to_datetime(df["monthyear"], format="mixed", dayfirst=False)
+        df.rename(columns={"monthyear": "month_year_outcome"}, inplace=True)
+    if "date_of_birth" in df.columns:
+        df["date_of_birth"] = pd.to_datetime(df["date_of_birth"])
     
     # age to months
-    if "Age upon Outcome" in df.columns:
-        df["age_outcome_months"] = df["Age upon Outcome"].apply(parse_age_to_months)
+    if "age_upon_outcome" in df.columns:
+        df["age_outcome_months"] = df["age_upon_outcome"].apply(parse_age_to_months)
         
     # normalize text columns
-    if "Sex upon Outcome" in df.columns:
-        df["Sex upon Outcome"] = df["Sex upon Outcome"].replace("Unknown", "")
-    if "Outcome Type" in df.columns:
-        df["Outcome Type"] = df["Outcome Type"].replace("Unknown", "")
-    if "Outcome Subtype" in df.columns:
-        df["Outcome Subtype"] = df["Outcome Subtype"].fillna("").astype(str).str.title()
+    if "sex_upon_outcome" in df.columns:
+        df["sex_upon_outcome"] = df["sex_upon_outcome"].replace("Unknown", "")
+    if "outcome_type" in df.columns:
+        df["outcome_type"] = df["outcome_type"].replace("Unknown", "")
+    if "outcome_subtype" in df.columns:
+        df["outcome_subtype"] = df["outcome_subtype"].fillna("").astype(str).str.title()
         
     # classify into age groups
     if "age_outcome_months" in df.columns:
@@ -166,7 +166,7 @@ def process_outcomes(raw_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def validate_join_key(intakes: pd.DataFrame, outcomes: pd.DataFrame, key: str):
-    print("--- JOIN KEY VALIDATION ---")
+    print("\n--- JOIN KEY VALIDATION ---")
 
     # row counts
     print(f"Intakes rows:  {len(intakes)}")
@@ -222,7 +222,7 @@ def validate_post_join(df: pd.DataFrame, intakes: pd.DataFrame, key: str):
         print("WARNING: Joined table has fewer rows than intakes")
 
     # outcome coverage
-    has_outcome = df["Outcome Type"].notna().mean()
+    has_outcome = df["outcome_type"].notna().mean()
     print(f"\n% with outcome: {has_outcome:.2%}")
     print(f"% without outcome: {1 - has_outcome:.2%}")
 
@@ -242,18 +242,18 @@ def build_adoption_episodes(intakes: pd.DataFrame, outcomes: pd.DataFrame) -> pd
     # optional validation checks used during development
     debug = False #True
     if debug:
-        validate_join_key(intakes, outcomes, key="Animal ID")
-        inspect_multiplicity(intakes, outcomes, key="Animal ID")
+        validate_join_key(intakes, outcomes, key="animal_id")
+        inspect_multiplicity(intakes, outcomes, key="animal_id")
         
     # pair intakes and outcomes
     intakes_sorted = intakes.sort_values(by="datetime_intake", ignore_index=True)
     outcomes_sorted = outcomes.sort_values(by="datetime_outcome", ignore_index=True)
     
-    # match on same Animal ID, and match each intake to the first outcome that 
+    # match on same animal_id, and match each intake to the first outcome that 
     # occurs no earlier than that intake
     df = pd.merge_asof(intakes_sorted, 
                        outcomes_sorted, 
-                       by="Animal ID", 
+                       by="animal_id", 
                        left_on="datetime_intake",
                        right_on="datetime_outcome",
                        direction="forward",
@@ -261,11 +261,11 @@ def build_adoption_episodes(intakes: pd.DataFrame, outcomes: pd.DataFrame) -> pd
     
     # optional validation checks used during development
     if debug: 
-        validate_post_join(df, intakes, key="Animal ID")
+        validate_post_join(df, intakes, key="animal_id")
         
     # create variables related to outcome and length of stay (days)
-    df["is_adopted"] = (df["Outcome Type"] == 'Adoption')
-    df["has_outcome"] = df["Outcome Type"].notna()
+    df["is_adopted"] = (df["outcome_type"] == 'Adoption')
+    df["has_outcome"] = df["outcome_type"].notna()
     df["length_of_stay_days"] = (df["datetime_outcome"] - df["datetime_intake"]).dt.days
     df["invalid_los"] = (df["length_of_stay_days"] < 0)
     
