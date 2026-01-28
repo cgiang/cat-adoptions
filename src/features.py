@@ -101,7 +101,7 @@ def build_targets(df: pd.DataFrame) -> pd.Series:
 
 def add_baseline_adoption_prob(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Add a heuristic baseline adoption probability for A/B simulation.
+    Add a heuristic baseline adoption probability for simulation.
 
     NOTE:
     - Simulation-only feature (NOT used for modeling)
@@ -152,10 +152,6 @@ def add_baseline_adoption_prob(df: pd.DataFrame) -> pd.DataFrame:
     }
 
     p += df["intake_type"].map(intake_adjustment).fillna(0.0)
-
-    # name presence adjustment 
-    # cat having a name is more likely to be adopted 
-    p += np.where(df["has_name"], 0.30, -0.15)
 
     # avoid probabilities of 0 or 1 
     df["baseline_adoption_prob"] = p.clip(0.01, 0.99)
