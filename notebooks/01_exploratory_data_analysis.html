@@ -8072,12 +8072,14 @@ Count of negative length of stay (LOS): 0
 <div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"month_year_intake"</span><span class="p">)[</span><span class="s2">"outcome_type"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>\
-    <span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">"rate_of_missing_outcome"</span><span class="p">)</span>\
-    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"month_year_intake"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"month_year_intake"</span><span class="p">)[</span><span class="s2">"outcome_type"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">"rate_of_missing_outcome"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"month_year_intake"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8164,11 +8166,13 @@ Count of negative length of stay (LOS): 0
 <div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age_group_intake"</span><span class="p">)[</span><span class="s2">"outcome_type"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
-    <span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">"rate_of_missing_outcome"</span><span class="p">)</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age_group_intake"</span><span class="p">)[</span><span class="s2">"outcome_type"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">"rate_of_missing_outcome"</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8412,10 +8416,12 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"outcome_type"</span><span class="p">)[</span><span class="s2">"outcome_subtype"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"outcome_type"</span><span class="p">)[</span><span class="s2">"outcome_subtype"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8524,12 +8530,11 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"intake_type"</span><span class="p">)[[</span><span class="s2">"name_intake"</span><span class="p">,</span> 
-                           <span class="s2">"name_outcome"</span><span class="p">,</span> 
-                           <span class="s2">"sex_upon_intake"</span><span class="p">,</span> 
-                           <span class="s2">"sex_upon_outcome"</span><span class="p">]]</span>\
-    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"intake_type"</span><span class="p">)[[</span><span class="s2">"name_intake"</span><span class="p">,</span> <span class="s2">"name_outcome"</span><span class="p">,</span> <span class="s2">"sex_upon_intake"</span><span class="p">,</span> <span class="s2">"sex_upon_outcome"</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
     <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"name_intake"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8868,13 +8873,18 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">has_outcomes_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"has_outcome"</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">stats</span> <span class="o">=</span> <span class="n">has_outcomes_df</span>\
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age_group_intake"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"count"</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">is_adopted</span> <span class="o">=</span> <span class="n">has_outcomes_df</span><span class="p">[</span><span class="n">has_outcomes_df</span><span class="p">[</span><span class="s2">"is_adopted"</span><span class="p">]]</span>
-<span class="n">stats</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">stats</span><span class="p">)]</span> <span class="o">=</span> <span class="n">is_adopted</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age_group_intake"</span><span class="p">)[</span><span class="s2">"length_of_stay_days"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">stats</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="n">stats_los</span> <span class="o">=</span> <span class="n">is_adopted</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age_group_intake"</span><span class="p">)[</span><span class="s2">"length_of_stay_days"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age_group_intake"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"count"</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stats_los</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+
 <span class="n">stats</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Age Group Upon Intake"</span><span class="p">,</span> <span class="s2">"Adoption Count"</span><span class="p">,</span> <span class="s2">"Adoption Rate"</span><span class="p">,</span> <span class="s2">"Time to Adoption (Days)"</span><span class="p">]</span>
 <span class="n">stats</span>
 </pre></div>
@@ -8995,11 +9005,13 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="n">has_outcomes_df</span>\
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"intake_type"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"intake_type"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Intake Type"</span><span class="p">,</span> <span class="s2">"Adoption Rate"</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -9050,11 +9062,13 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">has_outcomes_df</span><span class="p">[</span><span class="s2">"Has Name Upon Intake"</span><span class="p">]</span> <span class="o">=</span> <span class="n">has_outcomes_df</span><span class="p">[</span><span class="s2">"name_intake"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
-<span class="n">adoption_rates</span> <span class="o">=</span> <span class="n">has_outcomes_df</span>\
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"Has Name Upon Intake"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+<span class="n">adoption_rates</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"Has Name Upon Intake"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Has Name Upon Intake"</span><span class="p">,</span> <span class="s2">"Adoption Rate"</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -9105,10 +9119,12 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="n">has_outcomes_df</span>\
-    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"intake_type"</span><span class="p">])[[</span><span class="s2">"Has Name Upon Intake"</span><span class="p">,</span> <span class="s2">"is_adopted"</span><span class="p">]]</span>\
-    <span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"Has Name Upon Intake"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"intake_type"</span><span class="p">])[[</span><span class="s2">"Has Name Upon Intake"</span><span class="p">,</span> <span class="s2">"is_adopted"</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"Has Name Upon Intake"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Intake Type"</span><span class="p">,</span> <span class="s2">"Has Name Upon Intake"</span><span class="p">,</span> <span class="s2">"Adoption Rate"</span><span class="p">]</span>
 <span class="n">adoption_rates</span>
 </pre></div>
@@ -9204,11 +9220,13 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="n">has_outcomes_df</span>\
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"intake_condition"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"intake_condition"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Intake Condition"</span><span class="p">,</span> <span class="s2">"Count"</span><span class="p">,</span> <span class="s2">"Adoption Rate"</span><span class="p">]</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -9328,11 +9346,13 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="n">has_outcomes_df</span>\
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"breed_intake"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"breed_intake"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Breed Upon Intake"</span><span class="p">,</span> <span class="s2">"Count"</span><span class="p">,</span> <span class="s2">"Adoption Rate"</span><span class="p">]</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -9511,11 +9531,13 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="n">has_outcomes_df</span>\
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"color_intake"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">adoption_rates</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"color_intake"</span><span class="p">)[</span><span class="s2">"is_adopted"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Color Upon Intake"</span><span class="p">,</span> <span class="s2">"Count"</span><span class="p">,</span> <span class="s2">"Adoption Rate"</span><span class="p">]</span>
 <span class="n">adoption_rates</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -9808,9 +9830,11 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">los_stats</span> <span class="o">=</span> <span class="n">has_outcomes_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age_group_intake"</span><span class="p">)[</span><span class="s2">"length_of_stay_days"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">los_stats</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age_group_intake"</span><span class="p">)[</span><span class="s2">"length_of_stay_days"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>
     <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"count"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -9859,10 +9883,12 @@ Excluded</strong>, as the outcome label is unknown and including it would introd
 <div class="jp-InputPrompt jp-InputArea-prompt">In [33]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">los_stats</span> <span class="o">=</span> <span class="n">has_outcomes_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"intake_type"</span><span class="p">)[</span><span class="s2">"length_of_stay_days"</span><span class="p">]</span>\
-    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>\
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>\
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">los_stats</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">has_outcomes_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"intake_type"</span><span class="p">)[</span><span class="s2">"length_of_stay_days"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
