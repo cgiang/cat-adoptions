@@ -1,5 +1,7 @@
 # 🐱 Cat Adoption Analysis
 
+****What makes a cat more adoptable and faster?**
+
 ## Project Overview
 
 This project analyzes cat intake and adoption data from the Austin Animal Center to understand **which intake-related factors drive adoption likelihood and speed**, and to evaluate a simple **intervention: assigning names to cats upon intake**. This analysis includes ETL, exploratory analysis, predictive modeling, SQL analysis, A/B testing, and an interactive dashboard.

@@ -31,7 +31,13 @@ df["has_name"] = df["name_intake"].notna()
 
 # -----Header-----
 st.title("Cat Adoption Analysis 🐱")
-st.markdown("Interactive visualization of cat adoption outcomes.")
+st.subheader("**What makes a cat more adoptable and faster?**")
+st.write(
+    """
+    A look into adoption outcomes using ~70,000 cat intakes at the 
+    Austin Animal Center from October 2013 to May 2025.
+    """
+)
 
 
 # -----Sidebar filters-----
@@ -52,7 +58,15 @@ has_name = st.sidebar.selectbox(
 
 
 # -----Apply filters-----
-filtered = df[df["age_group_intake"].isin(age_group)]
+if age_group:
+    filtered = df[df["age_group_intake"].isin(age_group)]
+else: # handle the case where no age group is selected
+    filtered = df.copy()
+    st.warning(
+        """
+        Please select at least one age group. When no age group is selected,
+        no age group filters are applied.
+        """)
 
 if has_name != "All":
     filtered = filtered[filtered["has_name"] == (has_name == "Yes")]
@@ -111,7 +125,13 @@ age_stats["Age Group at Intake"] = pd.Categorical(
 
 age_stats = age_stats.sort_values("Age Group at Intake")
 
-st.write("**Average Time to Adoptions (Days)**")
+st.write(
+    """
+    Kittens are adopted faster and at higher rates.
+    
+    **Average Time to Adoptions (Days)**
+    """
+)
 
 col1, col2 = st.columns([8, 5], gap="medium")
 
@@ -146,7 +166,13 @@ name_stats.columns = ["Has Name",
                      "Intake Count", 
                      "Adoption Rate"]
 
-st.write("**Adoption Rate**")
+st.write(
+    """
+    Cats with names at intake show higher adoption rates.
+    
+    **Adoption Rate**
+    """
+)
 
 col1, col2 = st.columns([5, 2], gap="medium")
 
@@ -177,7 +203,14 @@ st.line_chart(
 # -----Seasonality-----
 st.subheader("Seasonality of Intakes")
 
-st.write("**Monthly Intake Volume**")
+st.write(
+    """
+    Intake volume surges in spring and summer (kitten season), 
+    and drops in fall and winter.
+    
+    **Monthly Intake Volume**
+    """
+)
 monthly_intakes = (
     filtered
     .groupby(["month_year_intake", "age_group_intake"])
@@ -206,10 +239,11 @@ st.write(
     """
     Kittens are adopted faster and at higher rates, with intake volume 
     peaking in spring and summer.
+    
     Cats with names at intake show higher adoption rates.
-
-    I recommend a **limited rollout of naming at intake**, using 30-day 
-    adoption rate as the primary metric and length of stay as a guardrail, 
-    with ongoing monitoring before broader rollout.
+    
+    I suggest **starting with a small trial of naming at intake**, measuring 
+    success by *30-day adoption rate*, and monitoring *length of stay* before 
+    expanding it more widely.
     """
 )
