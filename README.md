@@ -96,9 +96,9 @@ An interactive Streamlit dashboard allows non-technical users to:
 - View seasonal intake trends
 - See the final recommendation in context
 
-Below is a screenshot of the beginning part of the app:
+Below is a quick look at the app:
 
-![Streamlit screenshot](assets/figures/streamlit_screenshot.png)
+![Streamlit screenshot](assets/figures/streamlit_screenrecorder.gif)
 
 ## Project Scope & Framing
 
