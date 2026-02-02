@@ -96,6 +96,10 @@ An interactive Streamlit dashboard allows non-technical users to:
 - View seasonal intake trends
 - See the final recommendation in context
 
+Below is a screenshot of the beginning part of the app:
+
+![Streamlit screenshot](assets\figures\streamlit_screenshot.png)
+
 ## Project Scope & Framing
 
 This project is structured to mirror a typical DS workflow: defining a business problem, working with intake-related data constraints, building interpretable and flexible models, and using statistical analysis to inform an intervention decision.
