@@ -86,6 +86,8 @@ Recommendation:
 
 ## Dashboard
 
+[Link to Streamlit app](https://cat-adoptions.streamlit.app/)
+
 An interactive Streamlit dashboard allows non-technical users to:
 
 - Filter by age group and name presence
@@ -105,4 +107,5 @@ Predictive modeling serves as one input into the decision, along with explorator
 - SQL (MySQL, window functions, CTEs)
 - statsmodels, SciPy
 - Streamlit
+
 - GitHub
