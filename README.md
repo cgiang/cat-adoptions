@@ -22,14 +22,14 @@ These datasets are cleaned, standardized, and joined into a single canonical int
 
 ## Methodology
 
-1. **ETL & Feature Engineering**
+### 1. ETL & Feature Engineering
 
 - Clean and join intake and outcome records
 - Handle multiple intakes per cat using time-aware joins
 - Engineer intake-related features (age, breed, color, name presence, intake condition, etc.)
 - Group rare categorical levels to reduce variance
 
-2. **Exploratory Data Analysis (EDA)**
+### 2. Exploratory Data Analysis (EDA)
 
 Key findings:
 
@@ -38,7 +38,7 @@ Key findings:
 - Intake volume and adoption patterns are strongly seasonal
 - ~1% of intakes lack outcomes (mostly recent), excluded from adoption-rate denominators
 
-3. **Predictive Modeling**
+### 3. Predictive Modeling
 
 Two complementary models to predict 30-day adoption likelihood:
 
@@ -53,7 +53,7 @@ Best-performing model (XGBoost):
 
 Length-of-stay (LOS) modeling among adopted cats shows limited predictive power, which suggests that many drivers of time to adoption occur post-intake.
 
-4. **SQL Analysis**
+### 4. SQL Analysis
 
 SQL queries replicate key metrics:
 
@@ -63,7 +63,7 @@ SQL queries replicate key metrics:
 
 This section translates analysis into stakeholder-facing queries.
 
-5. **A/B Testing & Simulation**
+### 5. A/B Testing & Simulation
 
 Because naming is not randomized, the analysis is observational, not a randomized experiment.
 
@@ -93,7 +93,7 @@ An interactive Streamlit dashboard allows non-technical users to:
 - View seasonal intake trends
 - See the final recommendation in context
 
-## Project Framing
+## Project Scope & Framing
 
 This project is structured to mirror a typical DS workflow: defining a business problem, working with intake-related data constraints, building interpretable and flexible models, and using statistical analysis to inform an intervention decision.
 
@@ -103,6 +103,6 @@ Predictive modeling serves as one input into the decision, along with explorator
 
 - Python (pandas, numpy, scikit-learn, xgboost, shap)
 - SQL (MySQL, window functions, CTEs)
-- statsmodels, sciPy
+- statsmodels, SciPy
 - Streamlit
 - GitHub
