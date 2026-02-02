@@ -1,6 +1,6 @@
 # 🐱 Cat Adoption Analysis
 
-****What makes a cat more adoptable and faster?**
+**What makes a cat more adoptable and faster?**
 
 ## Project Overview
 
