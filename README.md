@@ -98,7 +98,7 @@ An interactive Streamlit dashboard allows non-technical users to:
 
 Below is a screenshot of the beginning part of the app:
 
-![Streamlit screenshot](assets\figures\streamlit_screenshot.png)
+![Streamlit screenshot](assets/figures/streamlit_screenshot.png)
 
 ## Project Scope & Framing
 
