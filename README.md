@@ -95,7 +95,6 @@ An interactive Streamlit dashboard allows non-technical users to:
 
 - Filter by age group and name presence
 - Explore adoption rates and time to adoption
-- View seasonal intake trends
 - See the final recommendation in context
 
 Below is a quick look at the app:
