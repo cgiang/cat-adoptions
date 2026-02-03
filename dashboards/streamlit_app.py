@@ -76,19 +76,23 @@ adopted_df = filtered[filtered["is_adopted"]]
 # -----Overall metrics-----
 st.subheader("Overall Adoption Metrics")
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric("Total Intakes", f"{len(filtered):,}")
-
+    intakes_with_outcomes = len(filtered[filtered['has_outcome']])
+    st.metric("Total Intakes with Outcomes", f"{intakes_with_outcomes:,}")
+    
 with col2:
+    st.metric("Total Adoptions", f"{len(adopted_df):,}")
+
+with col3:
     rate = filtered.loc[filtered['has_outcome'],'is_adopted'].mean()
     st.metric(
         "Adoption Rate",
         f"{rate:.2%}" if pd.notna(rate) else "N/A"
     )
 
-with col3:
+with col4:
     st.metric(
         "Median Length of Stay (days)",
         int(filtered.loc[filtered["is_adopted"], "length_of_stay_days"].median())
@@ -191,45 +195,31 @@ with col2:
 # -----Length of stay (LOS)-----
 st.subheader("Time to Adoption")
 
-st.write("**Distribution of Time to Adoption (Days) within 90 Days**")
+st.write("**Distribution of Time to Adoption (Up to 90 Days)**")
 
-st.line_chart(
-    adopted_df[adopted_df["length_of_stay_days"]<=90]
-    ["length_of_stay_days"]
+st.markdown(r"How many cats are adopted *on the* $N^{th}$ *day* after intake?")
+    
+# histogram
+los_freq = (
+    adopted_df[adopted_df["length_of_stay_days"]<=90]["length_of_stay_days"]
     .value_counts()
     .sort_index()
 )
 
-# -----Seasonality-----
-st.subheader("Seasonality of Intakes")
+# cumulative histogram
+los_cumulative_freq = los_freq.cumsum()
+
+st.bar_chart(los_freq)
 
 st.write(
     """
-    Intake volume surges in spring and summer (kitten season), 
-    and drops in fall and winter.
+    **Cumulative Distribution of Time to Adoption (Up to 90 Days)**
     
-    **Monthly Intake Volume**
+    How many cats are adopted *within N days* after intake?
     """
 )
-monthly_intakes = (
-    filtered
-    .groupby(["month_year_intake", "age_group_intake"])
-    ["animal_id"]
-    .count()
-    .reset_index()
-)
 
-monthly_intakes_age = (
-    monthly_intakes
-    .pivot(
-        index="month_year_intake", 
-        columns="age_group_intake", 
-        values="animal_id")
-)
-
-st.line_chart(
-    monthly_intakes_age
-)
+st.line_chart(los_cumulative_freq)
 
 
 # -----Recommendation-----
@@ -237,8 +227,7 @@ st.subheader("Summary & Recommendation")
 
 st.write(
     """
-    Kittens are adopted faster and at higher rates, with intake volume 
-    peaking in spring and summer.
+    Kittens are adopted faster and at higher rates.
     
     Cats with names at intake show higher adoption rates.
     
