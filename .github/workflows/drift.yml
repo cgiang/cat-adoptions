@@ -25,4 +25,4 @@ jobs:
 
       - name: Run drift detection
         run: |
-          python -m src.drift_monitoring.py
+          python -m src.drift_monitoring
