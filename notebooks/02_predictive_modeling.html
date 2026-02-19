@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>03_predictive_modeling</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>02_predictive_modeling</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7988,7 +7988,7 @@ weighted avg       0.74      0.72      0.73     13719
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=dd9bc346-5edd-4f34-b766-667885f7aa18">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=dd9bc346-5edd-4f34-b766-667885f7aa18">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8008,7 +8008,23 @@ weighted avg       0.74      0.72      0.73     13719
         <span class="n">eval_metric</span><span class="o">=</span><span class="s2">"logloss"</span><span class="p">,</span>
         <span class="n">random_state</span><span class="o">=</span><span class="mi">2026</span>
 <span class="p">)</span>
+
+<span class="c1"># save model</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">xgb</span><span class="p">,</span> <span class="s2">"../models/xgb_adoption_model.pkl"</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>['../models/xgb_adoption_model.pkl']</pre>
 </div>
 </div>
 </div>

@@ -107,10 +107,25 @@ This project is structured to mirror a typical DS workflow: defining a business 
 
 Predictive modeling serves as one input into the decision, along with exploratory analysis, SQL-based metrics, and simulated impact at scale.
 
+## Monitoring
+
+The project includes lightweight production-style monitoring using rolling annual windows.
+
+Three layers are monitored for drift detection:
+
+- **Feature drift** (Evidently)
+- **Predicted adoption probability drift**
+- **Adoption rate drift**
+
+Feature drift alone does not trigger failure. CI fails only when predicted adoption probability shifts materially, or when both  actual adoption rate and feature drift are detected.
+
+This monitoring approach distinguishes between intake variation and model instability.
+
 ## Tech Stack
 
 - Python (pandas, numpy, scikit-learn, xgboost, shap)
 - SQL (MySQL, window functions, CTEs)
 - statsmodels, SciPy
 - Streamlit
+- Evidently
 - GitHub
